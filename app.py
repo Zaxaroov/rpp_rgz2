@@ -23,7 +23,8 @@ cache = Cache(app, config={
 limiter = Limiter(
     app = app,
     key_func=get_remote_address,
-    default_limits=[]
+    default_limits=[],
+    storage_uri="memory://",
 )
 
 # Подключение к БД
