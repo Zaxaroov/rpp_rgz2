@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сайт для создания коротких ссылок</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #d9dae2;
+        }
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+
+        input, button {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Сайт для создания коротких ссылок</h1>
+
+<h2>Добавить короткую ссылку</h2>
+<form method="POST" action="/shorten">
+    <input type="text" name="url" placeholder="Введите URL" required>
+    <input type="text" name="user_id" placeholder="User ID">
+    <button type="submit">Создать</button>
+</form>
+
+<h2>Список всех ссылок</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Короткий URL</th>
+            <th>Оригинальный URL</th>
+            <th>User ID</th>
+            <th>Количество кликов</th>
+            <th>Создана</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for url in urls %}
+        <tr>
+            <td>
+                <a href="/{{ url.short_code }}" target="_blank">{{ url.short_code }}</a>
+            </td>
+            <td>
+                <a href="{{ url.original_url }}" target="_blank">{{ url.original_url }}</a>
+            </td>
+            <td>{{ url.user_id or "-" }}</td>
+            <td>{{ url.clicks }}</td>
+            <td>{{ url.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
